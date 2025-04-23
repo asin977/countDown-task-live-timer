@@ -38,7 +38,7 @@ function recordTimerList() {
     records.forEach((data, index) => {
         recordsList.innerHTML += `
             <div class="record">
-                <div class="head"><strong>TIMER ${index + 1}</strong></div>
+                <div class="head"><strong>📓 TIMER ${index + 1}</strong></div>
                 <div>Start: ${data.start}</div>
                 <div>End: ${data.end}</div>
                 <div>Duration: ${data.elapsed}</div>

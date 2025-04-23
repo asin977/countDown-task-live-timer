@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('img/twn.jpg') no-repeat center center fixed,
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%),
+                linear-gradient(135deg, #000000, #002244);
+    background-size: cover;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Mobile first: stack items */
+    min-height: 100vh;
+}
+
+/* Timer section */
+.timer-box {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Records section */
+.records {
+    padding: 20px;
+    background-color: #021425;
+    overflow-y: auto;
+}
+
+/* Record individual item */
+.record {
+    background-color: #daaa0d;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0px 4px 20px rgba(158, 22, 13, 0.7);
+    font-weight: bold;
+}
+
+.record div {
+    margin: 4px 0;
+}
+
+.head {
+    color: #002244;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+/* Display rows for start/end/elapsed */
+.display-row {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #333;
+    border-radius: 4px;
+    box-shadow: 0px 4px 20px rgba(34, 3, 1, 0.7);
+    
+}
+
+.display-row span.label {
+    flex: 1;
+}
+
+.display-row span.value {
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Controls */
+.controls {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.controls button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #daaa0d;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.controls button:hover:not(:disabled) {
+    background-color: #c99400;
+}
+
+.controls button:disabled {
+    background: #444;
+    cursor: not-allowed;
+}
+
+.clear {
+    background-color: #0056b3;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Custom scrollbar */
+.records {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #002244;
+}
+
+.records::-webkit-scrollbar {
+    width: 6px;
+}
+
+.records::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
+/* Responsive Layout Switch at 768px */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row; /* Side-by-side layout */
+    }
+
+    .records {
+        width: 30%;
+        height: 100vh;
+    }
+
+    .timer-box {
+        width: 70%;
+        height: 100vh;
+    }
+}
+
+/* Small screens (up to 767px) adjustments */
+@media (max-width: 767px) {
+    .records h2,
+    .timer-box h2 {
+        text-align: center;
+    }
+
+    .display-row {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .display-row span.label,
+    .display-row span.value {
+        text-align: left;
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls button {
+        width: 100%;
+        max-width: 240px;
+    }
+}

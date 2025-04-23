@@ -2,98 +2,117 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #000000, #002244);
+    background: url('img/twn.jpg') no-repeat center center fixed,
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%),
+        linear-gradient(135deg, #000000, #002244);
+    background-size: cover;
     color: #fff;
     overflow: hidden;
 }
+
 .container {
     display: flex;
     height: 100vh;
+    overflow-x: hidden;
 }
+
 .records {
     width: 30%;
-    background-color:#002244;
-    padding:20px;
+    background-color: #021425;
+    padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
 }
+
 .records h2 {
     margin-top: 0;
-    font-size:1.4rem;
+    font-size: 1.2rem;
     border-bottom: 1px solid #444;
-    padding-bottom:8px;
-}
-.record {
-    background-color:#daaa0d;
-    margin-bottom:12px;
-    padding:12px;
-    border-radius:6px;
-    box-shadow:0px 4px 20px rgba(204,204,204,0.7);
-}
-.record div {
-    margin:4px 0;
-}
-.timer-box {
-    flex-grow: 1;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-} 
-.timer-container h2 {
-    margin:0 0 16px;
+    padding-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
+.record {
+    background-color: #daaa0d;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0px 4px 20px rgba(241, 59, 46, 0.7);
+    font-weight: bold;
+    box-shadow: 0px 4px 20px rgba(158, 22, 13, 0.7);
+}
+
+.record div {
+    margin: 4px 0;
+}
+
+.timer-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top:45px;
+    align-items: center;
+}
+.timer-container h2 {
+    margin: 0 0 16px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
 .display-row {
-    width:100%;
+    width: 100%;
     max-width: 320px;
-    display:flex;
+    display: flex;
     justify-content: space-between;
-    padding:8px 16px;
-    background-color:#333;
-    border-radius:2px;
-    box-shadow: 0px 4px 20px rgba(204,204,204,0.7);
-    margin-bottom:12px;
+    padding: 15px 20px;
+    background-color: #333;
+    border-radius: 2px;
+    box-shadow: 0px 4px 20px rgba(34, 3, 1, 0.7);
+
 }
 .display-row span.label {
-    flex:1;
+    flex: 1;
 }
+
 .display-row span.value {
-    flex:1;
+    flex: 1;
     text-align: right;
     font-weight: bold;
 }
+
 .controls {
-    margin-top:16px;
+    margin-top: 16px;
 }
+
 .controls button {
-    margin:0 8px;
+    margin: 0 8px;
     padding: 10px 16px;
     font-size: 1rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background:#daaa0d;
+    background: #daaa0d;
     color: #fff;
     transition: background 0.2s;
 }
+
 .clear {
-    background-color: rgb(104, 23, 39);
-    border:none;
-    color:#fff;
-    font-weight:bold;
-    padding:4px 10px;
-    border-radius:20px;
-    cursor:pointer;
+    background-color: #0056b3;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
 }
+
 .controls button:hover:not(:disabled) {
     background-color: #daaa0d;
 }
+
 .controls button:disabled {
-    background:#444;
-    cursor:not-allowed;
+    background: #444;
+    cursor: not-allowed;
 }
+
 .records {
     scrollbar-width: thin;
     scrollbar-color: #888 #002244;
@@ -107,3 +126,47 @@ body {
     background-color: #888;
     border-radius: 3px;
 }
+
+.head {
+    color: #002244;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.elapsed-row {
+    background-color: #1a1a1a;
+    border: 1px solid #daaa0d;
+    box-shadow: 0px 4px 20px rgba(218, 170, 13, 0.5);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    position: relative;
+    font-weight: bold;
+    border-radius:50px;
+}
+
+.elapsed-row .label {
+    color: #daaa0d;
+}
+
+.elapsed-row::before {
+    content: "⏱️";
+    position: absolute;
+    left: -4px;
+    top: 47%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+@media screen and (min-width:1024px) {
+    .display-row {
+        width: 100%;
+        max-width: 500px;
+        padding: 30px 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+}
+

@@ -10,11 +10,15 @@
     <div class="container">
         
         <div class="records">
-          <h2>Recorded Timers</h2>
+          <h2>RECORDED TIMERS</h2>
           <div id="recordsList"></div>
         </div>
         <div class="timer-box">
-          <h2>Live Timer</h2>
+          <h2>🕔 LIVE TIMER</h2>
+          <div class="display-row elapsed-row">
+            <span class="label">Elapsed Time:</span>
+            <span class="value" id="elapsedTime">00:00:00</span>
+        </div>
           <div class="display-row">
             <span class="label">Start:</span>
             <span class="value" id="startTime">--:--:--</span>
@@ -23,10 +27,7 @@
             <span class="label">End:</span>
             <span class="value" id="endTime">--:--:--</span>
           </div>
-          <div class="display-row">
-            <span class="label">Elapsed:</span>
-            <span class="value" id="elapsedTime">00:00:00</span>
-          </div>
+          
           <div class="controls">
             <button id="start">Start</button>
             <button id="stop" disabled>Stop</button>
@@ -39,6 +40,6 @@
         </div>
       </div>
     
-   <script src="script.js"></script> 
+   <script src="apps.js"></script> 
 </body>
 </html>
