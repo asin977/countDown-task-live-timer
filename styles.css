@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #000000, #002244);
+    color: #fff;
+    overflow: hidden;
+}
+.container {
+    display: flex;
+    height: 100vh;
+}
+.records {
+    width: 30%;
+    background-color:#002244;
+    padding:20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.records h2 {
+    margin-top: 0;
+    font-size:1.4rem;
+    border-bottom: 1px solid #444;
+    padding-bottom:8px;
+}
+.record {
+    background-color:#daaa0d;
+    margin-bottom:12px;
+    padding:12px;
+    border-radius:6px;
+    box-shadow:0px 4px 20px rgba(204,204,204,0.7);
+}
+.record div {
+    margin:4px 0;
+}
+.timer-box {
+    flex-grow: 1;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+} 
+.timer-container h2 {
+    margin:0 0 16px;
+}
+
+.display-row {
+    width:100%;
+    max-width: 320px;
+    display:flex;
+    justify-content: space-between;
+    padding:8px 16px;
+    background-color:#333;
+    border-radius:2px;
+    box-shadow: 0px 4px 20px rgba(204,204,204,0.7);
+    margin-bottom:12px;
+}
+.display-row span.label {
+    flex:1;
+}
+.display-row span.value {
+    flex:1;
+    text-align: right;
+    font-weight: bold;
+}
+.controls {
+    margin-top:16px;
+}
+.controls button {
+    margin:0 8px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background:#daaa0d;
+    color: #fff;
+    transition: background 0.2s;
+}
+.clear {
+    background-color: rgb(104, 23, 39);
+    border:none;
+    color:#fff;
+    font-weight:bold;
+    padding:4px 10px;
+    border-radius:20px;
+    cursor:pointer;
+}
+.controls button:hover:not(:disabled) {
+    background-color: #daaa0d;
+}
+.controls button:disabled {
+    background:#444;
+    cursor:not-allowed;
+}
+.records {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #002244;
+}
+
+.records::-webkit-scrollbar {
+    width: 6px;
+}
+
+.records::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
