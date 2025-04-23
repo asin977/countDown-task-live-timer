@@ -50,10 +50,11 @@ function recordTimerList() {
 };
 
 function deleteRecord(index) {
-    const records = JSON.parse(localStorage.getItem('timerRecords') || '[]');
-    records.splice(index,1);
-    localStorage.setItem('timerRecords',JSON.stringify(records));
-};
+    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
+    records.splice(index, 1);
+    localStorage.setItem("timerRecords", JSON.stringify(records));
+    recordTimerList();
+}
 
 function saveRecord(start,end,elapsed) {
       const record = {start,end,elapsed};
@@ -119,3 +120,4 @@ document.getElementById('clearAll').addEventListener('click',()=>{
     }
 })
 recordTimerList();
+

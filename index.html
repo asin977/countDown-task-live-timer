@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CountDown</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CountDown</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div class="container">
-        
-        <div class="records">
-          <h2>RECORDED TIMERS</h2>
-          <div id="recordsList"></div>
+  <div class="container">
+
+    <div class="records">
+      <h2>RECORDED TIMERS</h2>
+      <div id="recordsList"></div>
+    </div>
+    <div class="timer-box">
+      <h2>🕔 LIVE TIMER</h2>
+        <div class="display-row elapsed-row">
+          <span class="label">Elapsed Time:</span>
+          <span class="value" id="elapsedTime">00:00:00</span>
         </div>
-        <div class="timer-box">
-          <h2>🕔 LIVE TIMER</h2>
-          <div class="display-row elapsed-row">
-            <span class="label">Elapsed Time:</span>
-            <span class="value" id="elapsedTime">00:00:00</span>
+        <div class="display-row">
+          <span class="label">Start:</span>
+          <span class="value" id="startTime">--:--:--</span>
         </div>
-          <div class="display-row">
-            <span class="label">Start:</span>
-            <span class="value" id="startTime">--:--:--</span>
-          </div>
-          <div class="display-row">
-            <span class="label">End:</span>
-            <span class="value" id="endTime">--:--:--</span>
-          </div>
-          
-          <div class="controls">
-            <button id="start">Start</button>
-            <button id="stop" disabled>Stop</button>
-            <button id="reset" disabled>Reset</button>
-          </div>
-          <div class="controls">
-            <button id="clearAll">Clear All Records</button>
+        <div class="display-row">
+          <span class="label">End:</span>
+          <span class="value" id="endTime">--:--:--</span>
         </div>
-        
+
+        <div class="controls">
+          <button id="start">Start</button>
+          <button id="stop" disabled>Stop</button>
+          <button id="reset" disabled>Reset</button>
         </div>
-      </div>
-    
-   <script src="apps.js"></script> 
+        <div class="controls">
+          <button id="clearAll">Clear All Records</button>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="apps.js"></script>
 </body>
+
 </html>
