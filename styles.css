@@ -7,29 +7,26 @@ body {
         linear-gradient(135deg, #000000, #002244); */
     background-size: cover;
     color:#fff;
+    background-color:#faf8f8;
     overflow: hidden;
 
 }
-
 .container {
     display: flex;
     height: 100vh;
     overflow-x: hidden;
-
 }
 .records {
-    width: 30%;
-    background-color: #021425;
+    width:30%;
+    background-color:#021425;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
 }
-
 h2 {
     font-size: 3rem;
     color:#1a1a1a;
 }
-
 .records h2 {
     margin-top: 0;
     font-size: 1.2rem;
@@ -99,6 +96,7 @@ h2 {
     font-weight: bold;
     font-size:36px;
     margin-right:7px;
+    font-family:'Times New Roman', Times, serif;
 
 }
 .controls {
@@ -114,6 +112,8 @@ h2 {
     background: #daaa0d;
     color: #fff;
     transition: background 0.2s;
+    font-weight:bold;
+    font-size:1.2rem;
 }
 
 .clear {
@@ -161,7 +161,6 @@ h2 {
     height: 120px;
     background-color: #1a1a1a;
     border: 10px solid #daaa0d;
-    box-shadow: 0px 4px 20px rgba(218, 170, 13, 0.5);
     border-radius: 50%; 
     display: flex;
     justify-content: center;
@@ -181,11 +180,21 @@ h2 {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.2rem;
+    font-size:2rem;
+}
+@media  screen and (min-width:595px) {
+    .resume {
+        margin-top:5px;
+    }
 }
 @media screen and (min-width:768px) {
     .resume {
         margin-top:5px;
+    }
+}
+@media screen  and (min-width:940px){
+    .records h2 {
+        font-size:1.5rem;
     }
 }
 @media screen and (min-width:1024px) {
@@ -195,5 +204,14 @@ h2 {
         justify-content: center;
         align-items: center;
         padding:25px;
+    }
+    .records h2 {
+        font-size:1.6rem;
+    }
+}
+@media screen and (min-width:1250px){
+    .records h2 {
+        font-size:2.5rem;
+        text-align: center;
     }
 }
