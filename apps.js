@@ -11,7 +11,7 @@ let endTime;
 let timerId;
 let elapsedSeconds = 0;
 
-function startTimer() {
+function startCount() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2,"0");
     const minutes = String(now.getMinutes()).padStart(2,"0"); 
@@ -43,7 +43,7 @@ function recordTimerList() {
                 <div>End: ${data.end}</div>
                 <div>Duration: ${data.elapsed}</div>
                 <button class="clear" onclick="deleteRecord(${index})">Delete</button>
-                <button class="resume" onclick="resumeRecord">Resume</button>
+                <button class="resume" onclick="resumeTimer(${index})">Resume</button>
             </div>
         `;
     });
@@ -65,15 +65,11 @@ function saveRecord(start,end,elapsed) {
       recordTimerList();
 }
 
-function resumeButton() {
-
-}
-
 startBtn.addEventListener('click',()=>{
     startTime = new Date();
     elapsedSeconds = 0;
 
-    startEl.textContent = startTimer(startTime);
+    startEl.textContent = startCount(startTime);
     endEl.textContent = '--:--:--';
     elapsedEl.textContent = timeFormatting(0);
 
@@ -92,14 +88,14 @@ stopBtn.addEventListener('click',()=>{
     endTime = new Date();
 
     clearInterval(timerId);
-    endEl.textContent = startTimer(endTime);
+    endEl.textContent = startCount(endTime);
 
     startBtn.disabled = false;
     stopBtn.disabled = true;
 
     saveRecord(
-        startTimer(startTime),
-        startTimer(endTime),
+        startCount(startTime),
+        startCount(endTime),
         timeFormatting(elapsedSeconds)
 
     );
@@ -117,6 +113,32 @@ resetBtn.addEventListener('click',()=>{
     stopBtn.disbaled = true;
     stopBtn.disabled = true;
 });
+
+function resumeTimer(index) {
+    const records = JSON.parse(localStorage.getItem('timerRecords'),'[]');
+    const record = records[index];
+
+    const [hours,minutes,seconds] = record.elapsed.split(':').map(Number);
+    elapsedSeconds = hours* 3600 + minutes * 60 + seconds;
+
+    startTime = new Date();
+    resumeIndex = index;
+
+    startEl.textContent = startTime.toLocaleTimeString();
+    endEl.textContent = '--:--:--';
+    elapsedEl.textContent = timeFormatting(elapsedSeconds);
+
+    stopBtn.disabled = false;
+    startBtn.disabled = true;
+    resetBtn.disabled = false;
+
+    clearInterval(timerId);
+    timerId = setInterval(()=>{
+        elapsedSeconds++;
+        elapsedEl.textContent = timeFormatting(elapsedSeconds);
+    },1000)
+}
+recordTimerList()
 
 document.getElementById('clearAll').addEventListener('click',()=>{
     if(confirm("Are you sure that you to delete all the records?")) {

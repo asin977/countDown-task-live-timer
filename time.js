@@ -28,27 +28,28 @@ function timeFormatting(sec) {
 }
 
 function recordTimerList() {
-    const records = JSON.parse(localStorage.getItem('timerRecords') || '[]');
+    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
     recordsList.innerHTML = '';
 
-    if (records.length===0) {
-        recordsList.innerHTML = '<p>No timer records yet..</p>';
+    if (records.length === 0) {
+        recordsList.innerHTML = '<p>No timer records yet.</p>';
         return;
     }
 
-    records.forEach((data,index)=>{
-        recordsList.innerHTML = `
-              <div class="record">
-                  <div class="head"><strong>📓 Timer ${index + 1}</strong></div>
-                  <div>Start:${data.start}</div>
-                  <div>Stop:${data.stop}</div>
-                  <div>Duration:${data.elapsed}</div>
-                  <button class="clear" onclick="deleteRecord(${index})">Delete</button>
-                  <button class="clear" onclick="resumeTimer(${index})">Resume</button>
-              </div>
+    records.forEach((data, index) => {
+        recordsList.innerHTML += `
+            <div class="record">
+                <div class="head"><strong>📓 TIMER ${index + 1}</strong></div>
+                <div>Start: ${data.start}</div>
+                <div>End: ${data.end}</div>
+                <div>Duration: ${data.elapsed}</div>
+                <button class="clear" onclick="deleteRecord(${index})">Delete</button>
+                <button class="resume" onclick="resumeRecord">Resume</button>
+            </div>
         `;
     });
-}
+
+};
 
 function deleteRecord(index) {
      const records = JSON.parse(localStorage.getItem('timerRecords'),'[]');
@@ -80,7 +81,7 @@ startBtn.addEventListener('click',()=>{
     elapsedEl.textContent = timeFormatting(0);
 
     startBtn.disabled = true;
-    endBtn.disabled = false;
+    stopBtn.disabled = false;
     resetBtn.disabled = false;
 
     clearInterval(timerId);
@@ -115,4 +116,4 @@ resetBtn.addEventListener('click',()=>{
     resetBtn.disabled = true;
     resumeIndex = null;
 });
-
+recordTimerList();

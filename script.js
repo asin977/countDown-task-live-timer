@@ -129,31 +129,61 @@ document.getElementById('clearAll').addEventListener('click', () => {
     }
 });
 
+// function resumeTimer(index) {
+//     const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
+//     const record = records[index];
+
+    
+//     const [h, m, s] = record.elapsed.split(":").map(Number);
+//     elapsedSeconds = h * 3600 + m * 60 + s;
+
+//     startTime = new Date();
+//     resumeIndex = index;
+
+//     startEl.textContent = startTimer(startTime);
+//     endEl.textContent = '--:--:--';
+//     elapsedEl.textContent = timeFormatting(elapsedSeconds);
+
+//     startBtn.disabled = true;
+//     stopBtn.disabled = false;
+//     resetBtn.disabled = false;
+
+//     clearInterval(timerId);
+//     timerId = setInterval(() => {
+//         elapsedSeconds++;
+//         elapsedEl.textContent = timeFormatting(elapsedSeconds);
+//     }, 1000);
+// }
 function resumeTimer(index) {
     const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
     const record = records[index];
 
     
-    const [h, m, s] = record.elapsed.split(":").map(Number);
+    let [h, m, s] = record.elapsed.split(":").map(Number);
     elapsedSeconds = h * 3600 + m * 60 + s;
 
+    
     startTime = new Date();
     resumeIndex = index;
 
-    startEl.textContent = startTimer(startTime);
+    
+    startEl.textContent = startTime.toLocaleTimeString();
     endEl.textContent = '--:--:--';
     elapsedEl.textContent = timeFormatting(elapsedSeconds);
 
+    
     startBtn.disabled = true;
     stopBtn.disabled = false;
     resetBtn.disabled = false;
 
+    // Start ticking
     clearInterval(timerId);
     timerId = setInterval(() => {
         elapsedSeconds++;
         elapsedEl.textContent = timeFormatting(elapsedSeconds);
     }, 1000);
 }
+
 
 recordTimerList();
 
