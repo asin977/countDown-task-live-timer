@@ -1,177 +1,54 @@
+const recordsList = document.getElementById('recordsList');
 const startBtn = document.getElementById('start');
 const stopBtn = document.getElementById('stop');
 const resetBtn = document.getElementById('reset');
 const startEl = document.getElementById('startTime');
 const endEl = document.getElementById('endTime');
 const elapsedEl = document.getElementById('elapsedTime');
-const recordsList = document.getElementById('recordsList');
 
-let startTime;
-let endTime;
-let timerId;
-let elapsedSeconds = 0;
-let resumeIndex = null;
-
-function startTimer(date) {
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
+function startCount(date) {
+    const hours = String(date.getHours()).padStart(2,'0');
+    const minutes = String(date.getMinutes()).padStart(2,'0');
+    const seconds = String(date.getSeconds()).padStart(2,'0');
+    return `${hours}:${minutes}:${seconds};
+`;
+};
+ 
+function formatTime(sec) {
+    const hours = Math.floor(sec/3600).padStart(2,'0');
+    const minutes = Math.floor((sec % 3600)/60).padStart(2,"0");
+    const seconds = Math.floor(sec % 60).padStart(2,'0');
     return `${hours}:${minutes}:${seconds}`;
-}
+};
 
-function timeFormatting(sec) {
-    const hours = String(Math.floor(sec / 3600)).padStart(2, '0');
-    const minutes = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
-    const seconds = String(sec % 60).padStart(2, '0');
-    return `${hours}:${minutes}:${seconds}`;
-}
-
-function recordTimerList() {
-    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
+function recordTimerList(data,index) {
+    const records = JSON.parse(localStorage.getItem('timerRecords')|| '[]');
     recordsList.innerHTML = '';
 
-    if (records.length === 0) {
-        recordsList.innerHTML = '<p>No timer records yet.</p>';
+    if(records.length == 0) {
+        recordsList.innerHTML='<p>No timer records yet.</p>';
         return;
     }
-
-    records.forEach((data, index) => {
-        recordsList.innerHTML += `
-            <div class="record">
-                <div class="head"><strong>📓 TIMER ${index + 1}</strong></div>
-                <div>Start: ${data.start}</div>
-                <div>End: ${data.end}</div>
-                <div>Duration: ${data.elapsed}</div>
-                <button class="clear" onclick="deleteRecord(${index})">Delete</button>
+    records.forEach((index,data)=>{
+        recordsList.innerHTML = `
+            <div class="records">
+                <div class="head"><strong>Timer:${index+1};</strong></div>
+                <div>Start:${data.start}</div>
+                <div>End:${data.end}</div>
+                <div>Duration:${data.elapsed}</div>
+                <button class="clear"onclick="deleteRecord(${index})">Delete</button>
                 <button class="resume" onclick="resumeTimer(${index})">Resume</button>
             </div>
         `;
     });
-}
+};
 
 function deleteRecord(index) {
-    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
-    records.splice(index, 1);
-    localStorage.setItem("timerRecords", JSON.stringify(records));
+    const records = JSON.parse(localStorage.getItem('timerRecords')|| '[]');
+    records.splice(index,1);
+
+    localStorage.setItem("timerRecords",JSON.stringify(records));
     recordTimerList();
 }
 
-function saveRecord(start, end, elapsed, index = null) {
-    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
 
-    if (index !== null) {
-        
-        records[index].end = end;
-        records[index].elapsed = elapsed;
-    } else {
-        
-        const record = { start, end, elapsed };
-        records.push(record);
-    }
-
-    localStorage.setItem("timerRecords", JSON.stringify(records));
-    recordTimerList();
-}
-
-startBtn.addEventListener('click', () => {
-    startTime = new Date();
-    elapsedSeconds = 0;
-    resumeIndex = null;
-
-    startEl.textContent = startTimer(startTime);
-    endEl.textContent = '--:--:--';
-    elapsedEl.textContent = timeFormatting(0);
-
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
-    resetBtn.disabled = false;
-
-    clearInterval(timerId);
-    timerId = setInterval(() => {
-        elapsedSeconds++;
-        elapsedEl.textContent = timeFormatting(elapsedSeconds);
-    }, 1000);
-});
-
-stopBtn.addEventListener('click', () => {
-    endTime = new Date();
-    clearInterval(timerId);
-    endEl.textContent = startTimer(endTime);
-
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-
-    const formattedElapsed = timeFormatting(elapsedSeconds);
-
-    if (resumeIndex !== null) {
-        const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
-        const existingRecord = records[resumeIndex];
-        saveRecord(
-            existingRecord.start,        
-            startTimer(endTime),        
-            formattedElapsed,            
-            resumeIndex
-        );
-    } else {
-        saveRecord(
-            startTimer(startTime),
-            startTimer(endTime),
-            formattedElapsed
-        );
-    }
-
-    resumeIndex = null;
-});
-
-resetBtn.addEventListener('click', () => {
-    clearInterval(timerId);
-
-    startEl.textContent = '--:--:--';
-    endEl.textContent = '--:--:--';
-    elapsedEl.textContent = '00:00:00';
-
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    resetBtn.disabled = true;
-    resumeIndex = null;
-});
-
-document.getElementById('clearAll').addEventListener('click', () => {
-    if (confirm("Are you sure that you want to delete all the records?")) {
-        localStorage.removeItem('timerRecords');
-        recordTimerList();
-    }
-});
-
-function resumeTimer(index) {
-    const records = JSON.parse(localStorage.getItem("timerRecords") || '[]');
-    const record = records[index];
-
-    
-    const [endHour, endMinute, endSecond] = record.end.split(':').map(Number);
-    const now = new Date();
-    startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endHour, endMinute, endSecond);
-
-
-    const [h, m, s] = record.elapsed.split(":").map(Number);
-    elapsedSeconds = h * 3600 + m * 60 + s;
-
-    resumeIndex = index;
-
-    // Display original start time
-    startEl.textContent = record.start;
-    endEl.textContent = "--:--:--";
-    elapsedEl.textContent = timeFormatting(elapsedSeconds);
-
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
-    resetBtn.disabled = false;
-
-    clearInterval(timerId);
-    timerId = setInterval(() => {
-        elapsedSeconds++;
-        elapsedEl.textContent = timeFormatting(elapsedSeconds);
-    }, 1000);
-}
-
-recordTimerList();
