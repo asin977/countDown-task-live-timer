@@ -10,22 +10,21 @@ let startTime;
 let endTime;
 let timerId;
 let elapsedSeconds = 0;
-let resumeIndex = null; 
+let resumeIndex = null;
 
 function startTimer(date) {
-    const hours = String(date.getHours()).padStart(2,"0");
-    const minutes = String(date.getMinutes()).padStart(2,"0");
-    const seconds = String(date.getSeconds()).padStart(2,"0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
     return `${hours}:${minutes}:${seconds}`;
 }
 
 function timeFormatting(sec) {
-    const hours = String(Math.floor(sec/3600)).padStart(2,"0");
-    const minutes = String(Math.floor((sec % 3600)/60)).padStart(2,"0");
-    const seconds = String(sec % 60).padStart(2,"0");
+    const hours = String(Math.floor(sec / 3600)).padStart(2, '0');
+    const minutes = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
+    const seconds = String(sec % 60).padStart(2, '0');
     return `${hours}:${minutes}:${seconds}`;
 }
-
 
 function recordTimerList() {
     const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
@@ -50,16 +49,15 @@ function recordTimerList() {
     });
 }
 
-
 function deleteRecord(index) {
-    const records = JSON.parse(localStorage.getItem("timerRecords") || '[]');
-    records.splice(index,1);
-    localStorage.setItem("timerRecords",JSON.stringify(records));
+    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
+    records.splice(index, 1);
+    localStorage.setItem("timerRecords", JSON.stringify(records));
     recordTimerList();
 }
 
-function saveRecord(start,end,elapsed,index = null) {
-    const records = JSON.parse(localStorage.getItem("timerRecords") || '[]');
+function saveRecord(start, end, elapsed, index = null) {
+    const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
 
     if (index !== null) {
         
@@ -71,60 +69,61 @@ function saveRecord(start,end,elapsed,index = null) {
         records.push(record);
     }
 
-    localStorage.setItem("timerRecords",JSON.stringify(records));
+    localStorage.setItem("timerRecords", JSON.stringify(records));
     recordTimerList();
 }
 
-startBtn.addEventListener("click",()=>{
+startBtn.addEventListener('click', () => {
     startTime = new Date();
     elapsedSeconds = 0;
     resumeIndex = null;
-    
+
     startEl.textContent = startTimer(startTime);
     endEl.textContent = '--:--:--';
     elapsedEl.textContent = timeFormatting(0);
 
-   startBtn.disabled = true;
-   stopBtn.disabled = false;
-   resetBtn.disabled = false;
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    resetBtn.disabled = false;
 
-   clearInterval(timerId);
-   timerId = setInterval(()=>{
-      elapsedSeconds++;
-      elapsedEl.textContent = timeFormatting(elapsedSeconds);
-   },1000);
+    clearInterval(timerId);
+    timerId = setInterval(() => {
+        elapsedSeconds++;
+        elapsedEl.textContent = timeFormatting(elapsedSeconds);
+    }, 1000);
 });
 
-stopBtn.addEventListener("click",()=>{
+stopBtn.addEventListener('click', () => {
     endTime = new Date();
     clearInterval(timerId);
-    endEl.textContent = startTimer(endTime); 
+    endEl.textContent = startTimer(endTime);
 
-    stopBtn.disabled = true;
     startBtn.disabled = false;
-     
+    stopBtn.disabled = true;
+
     const formattedElapsed = timeFormatting(elapsedSeconds);
 
-    if (resumeIndex !==null) {
-          const records = JSON.parse(localStorage.getItem('timerRecords') || '[]');
-          const existingRecord = records[resumeIndex];
-          saveRecord(
-            existingRecord.start,
-            startTimer(endTime),
-            formattedElapsed,
+    if (resumeIndex !== null) {
+        const records = JSON.parse(localStorage.getItem("timerRecords") || "[]");
+        const existingRecord = records[resumeIndex];
+        saveRecord(
+            existingRecord.start,        
+            startTimer(endTime),        
+            formattedElapsed,            
             resumeIndex
-          );
-    }else {
+        );
+    } else {
         saveRecord(
             startTimer(startTime),
             startTimer(endTime),
             formattedElapsed
         );
     }
+
     resumeIndex = null;
 });
 
-resetBtn.addEventListener('click',()=>{
+resetBtn.addEventListener('click', () => {
     clearInterval(timerId);
 
     startEl.textContent = '--:--:--';
@@ -137,21 +136,31 @@ resetBtn.addEventListener('click',()=>{
     resumeIndex = null;
 });
 
+document.getElementById('clearAll').addEventListener('click', () => {
+    if (confirm("Are you sure that you want to delete all the records?")) {
+        localStorage.removeItem('timerRecords');
+        recordTimerList();
+    }
+});
+
 function resumeTimer(index) {
-    const records = JSON.parse(localStorage.getItem('timerRecords') || '[]');
+    const records = JSON.parse(localStorage.getItem("timerRecords") || '[]');
     const record = records[index];
 
-    const [endHour,endMinute,endSecond] = record.end.split(':').map(Number);
+    
+    const [endHour, endMinute, endSecond] = record.end.split(':').map(Number);
     const now = new Date();
-    startTime = new Date(now.getFullYear(),now.getMonth(),now.getDate(),endHour,endMinute,endSecond);
+    startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endHour, endMinute, endSecond);
 
-    const [h,m,s] = record.elapsed.split(':').map(Number);
+
+    const [h, m, s] = record.elapsed.split(":").map(Number);
     elapsedSeconds = h * 3600 + m * 60 + s;
 
     resumeIndex = index;
 
+    // Display original start time
     startEl.textContent = record.start;
-    endEl.textContent = '--:--:--';
+    endEl.textContent = "--:--:--";
     elapsedEl.textContent = timeFormatting(elapsedSeconds);
 
     startBtn.disabled = true;
@@ -159,10 +168,10 @@ function resumeTimer(index) {
     resetBtn.disabled = false;
 
     clearInterval(timerId);
-    timerId = setInterval(()=>{
+    timerId = setInterval(() => {
         elapsedSeconds++;
         elapsedEl.textContent = timeFormatting(elapsedSeconds);
-    },1000)
-};
+    }, 1000);
+}
 
 recordTimerList();
