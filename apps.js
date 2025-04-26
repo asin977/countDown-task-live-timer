@@ -36,6 +36,8 @@ function recordTimerList(data,index) {
                 <div>Start:${data.start}</div>
                 <div>End:${data.end}</div>
                 <div>Duration:${data.elapsed}</div>
+                <div>Start Date:${data.startDate}</div>
+                <div>End Date:${data.endDate}</div>
                 <button class="clear"onclick="deleteRecord(${index})">Delete</button>
                 <button class="resume" onclick="resumeTimer(${index})">Resume</button>
             </div>
@@ -51,4 +53,45 @@ function deleteRecord(index) {
     recordTimerList();
 }
 
+function saveRecord(start,end,startDate,endDate,elapsed,index= null) {
+    const records = JSON.parse(localStorage.getItem("timerRecords")|| '[]');
 
+    if(index !== null) {
+        records[index].end = end;
+        records[index].endDate = endDate;
+        records[index].elapsed = elapsed;
+    }else {
+        const record = {start,end,startDate,endDate,elapsed };
+        records.push(record);
+    }
+    localStorage.setItem('timerRecords',JSON.stringify(records));
+    recordTimerList();
+}
+startBtn.addEventListener('click',()=>{
+    startTime = new Date();
+    elapsedSeconds = 0;
+    resumeTimer = null;
+
+    startEl.textContent = startTimer(startTime);
+    endEl.textContent = '--:--:--';
+    elapsedEl.textContent = timeFormatting(0);
+
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    resetBtn.disabled = false;
+
+    clearInterval(timerId);
+    timerId = setInterval(()=>{
+        elapsedSeconds++;
+        elapsedEl.textContent = timeFormatting(elapsedSeconds);
+    },1000)
+});
+
+stopBtn.addEventListener('click',()=>{
+    endTime = new Date();
+    clearInterval(timerId);
+    endEl.textContent = startTimer(endDate);
+
+    stopBtn.disabled = true;
+    
+})
