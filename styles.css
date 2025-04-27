@@ -125,7 +125,9 @@ h2 {
     border-radius: 20px;
     cursor: pointer;
 }
-
+.one {
+    color:black;
+}
 .controls button:hover:not(:disabled) {
     background-color: #daaa0d;
 }
