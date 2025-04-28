@@ -15,7 +15,7 @@ body {
 .records {
     position: absolute;
     bottom:12px;
-    top:443px;
+    top:503px;
     background-color:#021425;
     color:#fff;
     width:98%;
@@ -112,7 +112,7 @@ p {
     transform: translateX(-50%);
     font-size:2rem;
 }
-.display-row span.value {
+.display-rows span.value {
     flex: 1;
     text-align: right;
     font-weight: bold;
@@ -122,8 +122,14 @@ p {
     font-family:'Times New Roman', Times, serif;
 
 }
+#elapsedTime {
+    color:#fff;
+    margin-top:12px;
+    font-size:26px;
+    
+}
 .controls button {
-    margin: 0 8px;
+    margin: 10px 8px;
     margin-bottom:12px;
     font-size: 1rem;
     border: none;
@@ -155,14 +161,58 @@ p {
     border-radius:4px;
     font-weight:bold;
 }
-.display-row {
-    color:black;
+.display-rows {
+    color:#fff;
 }
 #startTime ,#endTime{
-    color:black;
+    color:#fff;
 }
 .label {
     font-weight:bold;
     font-size:25px;
     margin-bottom:12px;
+}
+.display-rows {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #333;
+    border-radius: 2px;
+    box-shadow: 0px 4px 20px rgba(34, 3, 1, 0.7);
+
+   }
+@media screen and (min-width:375px) {
+    .display-rows {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #333;
+    border-radius: 2px;
+    box-shadow: 0px 4px 20px rgba(34, 3, 1, 0.7);
+
+   }
+   .records {
+    position: absolute;
+    bottom:12px;
+    top:510px;
+    background-color:#021425;
+    color:#fff;
+    width:98%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.controls button {
+    margin:10px 8px;
+}
+.display-rows {
+    color:#fff;
+}
+#startTime,#endTime{
+    color:#fff;
+}
 }
