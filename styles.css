@@ -2,9 +2,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    /* background: url('img/twn.jpg') no-repeat center center fixed,
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%),
-        linear-gradient(135deg, #000000, #002244); */
     background-size: cover;
     color:#fff;
     background-color:#faf8f8;

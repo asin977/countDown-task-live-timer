@@ -229,3 +229,5 @@ recordTimerList();
 document.getElementById('clearAll').addEventListener('click', () => {
     clearAllRecords();
 });
+
+
