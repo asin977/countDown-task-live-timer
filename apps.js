@@ -109,7 +109,7 @@ function recordTimerList() {
 
         recordsList.innerHTML += `
             <div class="record">
-                <div class="head"><strong>📓 TIMER ${index + 1}</strong></div>
+                <div class="head"><strong class="strong">📓 TIMER ${index + 1}</strong></div>
                 ${sessionHtml}
                 <div><strong>Total Duration: ${totalDuration}</strong></div>
                 <button class="clear" onclick="deleteRecord(${index})">Delete</button>
