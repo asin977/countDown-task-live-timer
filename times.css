@@ -235,7 +235,31 @@ p {
     }
 
 }
-
+@media screen and (min-width:425px) {
+    .display-rows {
+        width: 100%;
+        max-width:338px;
+        padding: 30px;
+        display: flex;
+        background-color: #333;
+        border-radius: 2px;
+        box-shadow: 0px 4px 20px rgba(34, 3, 1, 0.7);
+    }
+    .records {
+        position: absolute;
+        bottom: 12px;
+        top: 585px;
+        background-color: #021425;
+        color: #fff;
+        width: 98%;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+    .controls {
+        margin-top:14px;
+    }
+}
 @media screen and (min-width:768px) {
     .records {
         width: 30%;
